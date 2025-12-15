@@ -70,7 +70,16 @@
 ---
 
 ## 🚀 Future Works
-성능을 고도화하기 위해 다음 전략들을 도입할 예정입니다.
-1. **Pre-trained Embeddings:** 처음부터 학습하는 대신 `GloVe`나 `Word2Vec`을 사용하여 의미론적 벡터를 초기화.
-2. **Attention Mechanism:** 문장 내에서 감정 판단에 결정적인 단어(Keyword)에 가중치를 두는 Attention 기법 도입.
-3. **Transformer (BERT):** RNN 계열의 순차적 처리 한계를 넘기 위해 Transformer 기반의 모델 적용.
+현재 약 66%인 정확도를 80% 이상으로 끌어올리기 위해, 다음의 단계별 고도화 전략을 계획하고 있습니다.
+
+### 1. Data Processing & Embedding
+* **Text Preprocessing:** 단순 줄바꿈 처리를 넘어 `NLTK`나 `Spacy`를 활용해 불용어(Stopwords)를 제거하고, 표제어 추출(Lemmatization)을 적용하여 데이터의 밀도를 높입니다.
+* **Advanced Tokenization:** 공백 기반 분리 대신 `WordPiece`나 `BPE` 토크나이저를 도입하여 미등록 단어(OOV) 문제를 해결합니다.
+* **Pre-trained Embeddings:** 데이터셋만으로 학습하는 대신, `GloVe`나 `FastText` 같은 사전 학습된 임베딩 벡터를 사용하여 초기 성능을 확보합니다.
+
+### 2. Model Architecture Improvements
+* **GRU (Gated Recurrent Unit):** LSTM 대비 파라미터가 적어 학습 효율이 좋은 GRU 모델을 적용하여 적은 데이터셋에서의 성능을 비교합니다.
+* **Attention Mechanism:** Bi-LSTM의 출력에 Attention Layer를 결합하여, 모델이 문장 내 핵심 감정 키워드에 집중할 수 있도록 개선합니다.
+
+### 3. State-of-the-Art (SOTA) Models
+* **BERT Fine-tuning:** RNN 계열의 한계를 극복하기 위해 `Hugging Face Transformers`를 활용, `bert-base` 모델을 파인 튜닝(Fine-tuning)하여 성능을 극대화합니다.
