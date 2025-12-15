@@ -4,7 +4,7 @@
 
 ## 📌 Project Overview
 * **Goal:** 영화 리뷰 텍스트의 긍정(1) / 부정(0) 이진 분류 (Binary Classification)
-* **Dataset:** `movie_reviews.csv`, `X_train.txt`
+* **Dataset:** `movie_reviews.csv(리뷰별 점수)`, `X_train.txt (리뷰)`
 * **Models:** Bi-RNN, Bi-LSTM
 * **Framework:** PyTorch
 
