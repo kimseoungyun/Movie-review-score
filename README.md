@@ -16,7 +16,18 @@
 * **시도:** 하이퍼파라미터 튜닝 및 Loss Function 변경을 시도했으나 해결되지 않음.
 * **해결:** **Bidirectional(양방향) 구조**로 모델을 교체하여 문맥의 앞뒤 정보를 모두 학습하게 함으로써 문제를 근본적으로 해결함.
 
-### 2. Data Augmentation
+### 2. ⚠️ Troubleshooting: The "Single Class Prediction" Issue
+프로젝트 진행 중, 초기 단방향 RNN 모델이 **이진 분류 학습 시 모든 데이터를 하나의 클래스(All 0 or All 1)로만 예측하는 치명적인 편향(Bias) 현상**을 발견했습니다. 이를 해결하기 위해 다양한 기술적 시도를 진행했습니다.
+
+1.  **Loss Function Engineering (Failed):**
+    * 데이터 불균형 문제로 의심하여 `BCEWithLogitsLoss`의 `pos_weight` 파라미터를 조정해 보았으나 효과가 없었습니다.
+    * 특정 클래스로 쏠리는 것을 방지하기 위해 별도의 Penalty Loss를 추가해 보았으나, 근본적인 해결책이 되지 못했습니다.
+
+2.  **Architectural Solution (Solved):**
+    * 문제의 원인을 '파라미터 설정'이 아닌 **'단방향 모델의 구조적 정보 손실(Information Bottleneck)'**로 재정의했습니다.
+    * 긴 문장의 맥락을 끝까지 유지하지 못하는 단방향 RNN의 한계를 **Bi-directional (양방향) 구조**로 교체함으로써, 문맥 정보를 보존하고 편향 문제를 완전히 해결했습니다.
+
+### 3. Data Augmentation
 * 원본 데이터(약 2,000개)만으로는 학습이 불안정하고 과적합(Overfitting)이 발생함.
 * **전처리 전략:** 리뷰 데이터를 문장/줄 단위로 나누어 재생성함으로써 학습 데이터셋의 볼륨을 늘림.
 * **결과:** 원본 데이터 사용 대비 정확도 약 **13% 향상**.
